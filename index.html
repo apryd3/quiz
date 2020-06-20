@@ -6,13 +6,16 @@
 html{
 	height:100%;
 	font-family: Arial;
+	background-color: rgba(85,129,151,1);
 }
 div.c1{ width: 400px; height:400px; display:grid; text-align:center; padding:10px 20px 30px 40px}
 div.c2{ width:100px; height:100px; display:inline; text-align:center;}
 .grid-container {
 	display: grid;
 	grid-template-columns: auto auto auto;
-	background-color: #2196F3;
+	//background-color: #2196F3;
+	//background-color: #770d29;
+	background-color: rgba(255,236,138,0.8);
 	padding: 10px;
 	}
 .g1 {
@@ -22,7 +25,8 @@ div.c2{ width:100px; height:100px; display:inline; text-align:center;}
   font-size: 30px;
   text-align: center;
 }
-.g1:hover {background-color: red;
+.g1:hover {background-color: rgba(119,13,41,1);
+color: white;
 cursor: pointer;}
 
 /* The Modal (background) */
@@ -240,7 +244,7 @@ cursor: pointer;}
 </head>
 
 <body>
-<h2>❔Quiz❔</h2>
+<h1>❔Quiz❔</h1>
 <div id="IDmodalQuestion" class="modal">
 	<!-- Modal content -->
 	<div class="modal-content">
@@ -371,7 +375,13 @@ function openquestion(i){
 	i=(i-1);
 	IDquestionText.innerHTML=questions[i];
 	modal.style.display = "block";
+	disabledq=document.getElementById(i+1);
+	disabledq.onclick = null;
+	disabledq.style.background = "grey";
+	disabledq.style.color = "white";
+	disabledq.innerHTML="&times"
 	
+	//console.log(disableq)
 }
 
 // Get the modal
@@ -383,12 +393,14 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none";
+  timerstatus="paused";
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
+	timerstatus="paused";
   }
 }
 
