@@ -276,7 +276,7 @@ cursor: pointer;}
 </div>
 <footer class="bottomnav">
 	<button class="open-button button-1" onclick="generategrid()"><input id="IDinputQnumber" class="inputQnumber" value="12"></input> Questions</button>
-	<!-- <button class="open-button button-2" onclick="generategrid(12)">12 Questions</button> -->
+	<button class="open-button button-2" onclick="selectrandom()">Pick a Question</button>
 	<!-- <button class="open-button button-3" onclick="generategrid(15)">15 Questions</button> -->
 	<button class="open-button button-4" onclick="openForm()">Edit Questions</button>
 </footer>
@@ -291,8 +291,9 @@ var randomnumber;
 var numberofquestions;
 var appendquestions="";
 var appendquestionsinput="";
-var questions=["你是哪国人?"];
+var questions=["你是哪国人?","When Is It?","How Was It?","Which is it?"];
 var timerstatus="paused";
+var questionsnumbersarray = [];
 generategrid();
 
 var inputQnumber;
@@ -346,9 +347,13 @@ function resettimer(){
 
 //Generate main grid and Edit questions grid
 function generategrid(numberofquestions){
+	
+
+
 	inputQnumber=document.getElementById("IDinputQnumber").value;
 	//console.log=(inputQnumber);
 	window.numberofquestions=inputQnumber;
+	fillquestionnumbersarray();
 	containerquestions=document.getElementById("IDcontainerquestions");
 	questionInputs=document.getElementById("IDquestionInputs");
 	containerquestions.innerHTML="";
@@ -424,6 +429,24 @@ function saveQuestions(){
 	}
 	closeForm();
 }
+
+function fillquestionnumbersarray(){
+	console.log("Generating Grid Numbers");
+	for (var i = 1 ; i <= numberofquestions; i++ ){
+		questionsnumbersarray.push(i);
+	}
+}
+function selectrandom(){
+	console.log("Selecting Random Question");
+	var num = Math.floor(Math.random() * questionsnumbersarray.length);
+	var roll = questionsnumbersarray.splice(num, 1);
+	var selectedquestion = roll[ 0 ];
+	console.log(selectedquestion);
+	console.log(questionsnumbersarray)
+	return selectedquestion;
+	
+}
+
 </script>
 
 </body>
