@@ -25,9 +25,12 @@ div.c2{ width:100px; height:100px; display:inline; text-align:center;}
   font-size: 30px;
   text-align: center;
 }
+
 .g1:hover {background-color: rgba(119,13,41,1);
 color: white;
 cursor: pointer;}
+
+
 
 /* The Modal (background) */
 .modal {
@@ -276,7 +279,7 @@ cursor: pointer;}
 </div>
 <footer class="bottomnav">
 	<button class="open-button button-1" onclick="generategrid()"><input id="IDinputQnumber" class="inputQnumber" value="12"></input> Questions</button>
-	<button class="open-button button-2" onclick="selectrandom()">Pick a Question</button>
+	<button class="open-button button-2" onclick="randomplayer()">Pick a Question</button>
 	<!-- <button class="open-button button-3" onclick="generategrid(15)">15 Questions</button> -->
 	<button class="open-button button-4" onclick="openForm()">Edit Questions</button>
 </footer>
@@ -375,7 +378,7 @@ function generategrid(numberofquestions){
 	//saveQuestions();
 }
 
-function openquestion(i){	
+function openquestion(i){
 	console.log("Clicked Question "+i);
 	i=(i-1);
 	IDquestionText.innerHTML=questions[i];
@@ -436,13 +439,35 @@ function fillquestionnumbersarray(){
 		questionsnumbersarray.push(i);
 	}
 }
+
+function highlightquestion(i){
+	//console.log(document.getElementById(i));
+	//document.getElementById(i).style.background-color=(rgba(119,13,41,1));
+	document.getElementById(i).style.background = "rgba(119,13,41,1)";
+	document.getElementById(i).style.color = "white";
+}
+
+function removehighlightquestion(i){
+	//console.log(document.getElementById(i));
+	document.getElementById(i).style.background = "rgba(255, 255, 255, 0.8)";
+	document.getElementById(i).style.color = "black";
+}
+
+function randomplayer(){
+	//console.log(selectrandom());
+	if (questionsnumbersarray.length != 1){
+		highlightquestion(selectrandom());
+		//openquestion(selectrandom());
+	}
+}
+
 function selectrandom(){
 	console.log("Selecting Random Question");
 	var num = Math.floor(Math.random() * questionsnumbersarray.length);
 	var roll = questionsnumbersarray.splice(num, 1);
 	var selectedquestion = roll[ 0 ];
-	console.log(selectedquestion);
-	console.log(questionsnumbersarray)
+	//console.log(selectedquestion);
+	//console.log(questionsnumbersarray)
 	return selectedquestion;
 	
 }
