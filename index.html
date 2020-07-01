@@ -280,7 +280,7 @@ cursor: pointer;}
 <footer class="bottomnav">
 	<button class="open-button button-1" onclick="generategrid()"><input id="IDinputQnumber" class="inputQnumber" value="12"></input> Questions</button>
 	<button class="open-button button-2" onclick="randomplayer()">Pick a Question</button>
-	<!-- <button class="open-button button-3" onclick="generategrid(15)">15 Questions</button> -->
+	<button class="open-button button-3" onclick="qOff()">qOff</button>
 	<button class="open-button button-4" onclick="openForm()">Edit Questions</button>
 </footer>
 <script>
@@ -297,6 +297,8 @@ var appendquestionsinput="";
 var questions=["你是哪国人?","When Is It?","How Was It?","Which is it?"];
 var timerstatus="paused";
 var questionsnumbersarray = [];
+var lastselectedquestion;
+//var randomTimer=setInterval(highlightquestion(selectrandom()),1000);
 generategrid();
 
 var inputQnumber;
@@ -388,7 +390,7 @@ function openquestion(i){
 	disabledq.style.background = "grey";
 	disabledq.style.color = "white";
 	disabledq.innerHTML="&times"
-	
+	lastselectedquestion=i;
 	//console.log(disableq)
 }
 
@@ -453,13 +455,35 @@ function removehighlightquestion(i){
 	document.getElementById(i).style.color = "black";
 }
 
+
+function qOn(){
+	if (questionsnumbersarray.length != 0){
+		highlightquestion(selectrandom());
+		if (questionsnumbersarray.length != 1){
+			qTimerOff=window.setTimeout(qOff,40);
+			}
+		}
+	else
+		{
+		clearInterval(qTimer);}
+	}
+	
+function qOff(){
+	removehighlightquestion(lastselectedquestion)
+}
+
+
 function randomplayer(){
 	//console.log(selectrandom());
-	if (questionsnumbersarray.length != 1){
-		highlightquestion(selectrandom());
+	//window.setInterval(highlightquestion(selectrandom()),1000);
+	qTimer=window.setInterval(qOn,50);
+	
+	
+		
+		//randomTimer();
 		//openquestion(selectrandom());
-	}
 }
+
 
 function selectrandom(){
 	console.log("Selecting Random Question");
@@ -468,6 +492,7 @@ function selectrandom(){
 	var selectedquestion = roll[ 0 ];
 	//console.log(selectedquestion);
 	//console.log(questionsnumbersarray)
+	lastselectedquestion = selectedquestion;
 	return selectedquestion;
 	
 }
