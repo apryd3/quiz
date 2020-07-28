@@ -296,7 +296,8 @@ var appendquestions="";
 var appendquestionsinput="";
 var questions=["你是哪国人?","When Is It?","How Was It?","Which is it?"];
 var timerstatus="paused";
-var questionsnumbersarray = [];
+questionsnumbersarray = [];
+questionsnumbersarray2 = [];
 var lastselectedquestion;
 //var randomTimer=setInterval(highlightquestion(selectrandom()),1000);
 generategrid();
@@ -440,6 +441,7 @@ function fillquestionnumbersarray(){
 	for (var i = 1 ; i <= numberofquestions; i++ ){
 		questionsnumbersarray.push(i);
 	}
+	console.log("Questions Array 1 = "+questionsnumbersarray);
 }
 
 function highlightquestion(i){
@@ -459,8 +461,8 @@ function removehighlightquestion(i){
 function qOn(){
 	if (questionsnumbersarray.length != 0){
 		highlightquestion(selectrandom());
-		if (questionsnumbersarray.length != 1){
-			qTimerOff=window.setTimeout(qOff,40);
+		if (questionsnumbersarray.length != 0){
+			qTimerOff=window.setTimeout(qOff,100);
 			}
 		}
 	else
@@ -474,25 +476,48 @@ function qOff(){
 
 
 function randomplayer(){
-	//console.log(selectrandom());
+	console.log("Array1 length : " + questionsnumbersarray.length);
 	//window.setInterval(highlightquestion(selectrandom()),1000);
-	qTimer=window.setInterval(qOn,50);
+	
+	
+	//todo
+	//copy questionsnumbersarray2 into questionsnumbersarray
+	if (questionsnumbersarray2.length != 0){
+		questionsnumbersarray=[];
+		questionsnumbersarray = questionsnumbersarray2.slice();
+		questionsnumbersarray2=[];
+	}
+	
+	
+	console.log(questionsnumbersarray);
+	qTimer=window.setInterval(qOn,200);
 	
 	
 		
-		//randomTimer();
-		//openquestion(selectrandom());
+	//randomTimer();
+	//openquestion(selectrandom());
 }
 
 
 function selectrandom(){
 	console.log("Selecting Random Question");
 	var num = Math.floor(Math.random() * questionsnumbersarray.length);
-	var roll = questionsnumbersarray.splice(num, 1);
+	var roll = questionsnumbersarray.splice(num, 1);	// splice(index,howmanytoremove,addnewitems)
+	
+	
+	
 	var selectedquestion = roll[ 0 ];
-	//console.log(selectedquestion);
-	//console.log(questionsnumbersarray)
+	
+	if (questionsnumbersarray.length != 0){
+		questionsnumbersarray2.push(selectedquestion);
+	}
+	
+	
+	
+	console.log(selectedquestion);
+	console.log(questionsnumbersarray2)
 	lastselectedquestion = selectedquestion;
+	
 	return selectedquestion;
 	
 }
