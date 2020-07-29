@@ -280,7 +280,7 @@ cursor: pointer;}
 <footer class="bottomnav">
 	<button class="open-button button-1" onclick="generategrid()"><input id="IDinputQnumber" class="inputQnumber" value="12"></input> Questions</button>
 	<button class="open-button button-2" onclick="randomplayer()">Pick a Question</button>
-	<button class="open-button button-3" onclick="qOff()">qOff</button>
+	<button class="open-button button-3" onclick="savecsv()">Save Questions</button>
 	<button class="open-button button-4" onclick="openForm()">Edit Questions</button>
 </footer>
 <script>
@@ -382,6 +382,9 @@ function generategrid(numberofquestions){
 }
 
 function openquestion(i){
+	if (questionsnumbersarray == 0 ){
+		questionsnumbersarray = questionsnumbersarray2.slice();
+	}
 	console.log("Clicked Question "+i);
 	i=(i-1);
 	IDquestionText.innerHTML=questions[i];
@@ -392,7 +395,10 @@ function openquestion(i){
 	disabledq.style.color = "white";
 	disabledq.innerHTML="&times"
 	lastselectedquestion=i;
-	//console.log(disableq)
+	lastselectedquestionindex=questionsnumbersarray.indexOf(i);
+	questionsnumbersarray.splice(lastselectedquestionindex+1, 1);
+	//questionsnumbersarray = questionsnumbersarray2.slice();
+	console.log("QuestionArray : " + questionsnumbersarray)
 }
 
 // Get the modal
@@ -467,7 +473,9 @@ function qOn(){
 		}
 	else
 		{
-		clearInterval(qTimer);}
+		clearInterval(qTimer);
+		openquestion(lastselectedquestion);
+		}
 	}
 	
 function qOff(){
@@ -510,6 +518,7 @@ function selectrandom(){
 	
 	if (questionsnumbersarray.length != 0){
 		questionsnumbersarray2.push(selectedquestion);
+		
 	}
 	
 	
@@ -520,6 +529,29 @@ function selectrandom(){
 	
 	return selectedquestion;
 	
+}
+
+function savecsv(){
+	//var A = [['n','sqrt(n)']];
+
+	<!-- for(var j=1; j<10; ++j){  -->
+		<!-- A.push([j, Math.sqrt(j)]); -->
+	<!-- } -->
+	console.log(questions);
+	var csvRows = [];
+
+	for(var i=0, l=questions.length; i<l; ++i){
+		csvRows.push(questions[i].join(','));
+	}
+
+	var csvString = csvRows.join("%0A");
+	var a         = document.createElement('a');
+	a.href        = 'data:attachment/csv,' +  encodeURIComponent(csvString);
+	a.target      = '_blank';
+	a.download    = 'myFile.csv';
+
+	document.body.appendChild(a);
+	a.click();
 }
 
 </script>
