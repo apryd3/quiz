@@ -294,7 +294,7 @@ var randomnumber;
 var numberofquestions;
 var appendquestions="";
 var appendquestionsinput="";
-var questions=["你是哪国人?","When Is It?","How Was It?","Which is it?"];
+var questions=["Q1:你是哪国人?","Q2: When Is It?","Q3:How Was It?","Q4:Which is it?"];
 var timerstatus="paused";
 questionsnumbersarray = [];
 questionsnumbersarray2 = [];
@@ -533,7 +533,7 @@ function selectrandom(){
 
 function savecsv(){
 	//var A = [['n','sqrt(n)']];
-
+	//var a = questions;
 	<!-- for(var j=1; j<10; ++j){  -->
 		<!-- A.push([j, Math.sqrt(j)]); -->
 	<!-- } -->
@@ -541,7 +541,10 @@ function savecsv(){
 	var csvRows = [];
 
 	for(var i=0, l=questions.length; i<l; ++i){
-		csvRows.push(questions[i].join(','));
+		console.log(questions[i]);
+		//qtn=questions[i];
+		csvRows.push(questions);
+		//csvRows.push(questions.join(','));
 	}
 
 	var csvString = csvRows.join("%0A");
