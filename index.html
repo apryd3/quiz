@@ -278,10 +278,10 @@ cursor: pointer;}
   </div>
 </div>
 <footer class="bottomnav">
-	<button class="open-button button-1" onclick="generategrid()"><input id="IDinputQnumber" class="inputQnumber" value="12"></input> Questions</button>
-	<button class="open-button button-2" onclick="randomplayer()">Pick a Question</button>
-	<button class="open-button button-3" onclick="savecsv()">Save Questions</button>
-	<button class="open-button button-4" onclick="openForm()">Edit Questions</button>
+	<button class="open-button button-1" id="buttonGenerate" onclick="generategrid()"><input id="IDinputQnumber" class="inputQnumber" value="12"></input> Questions</button>
+	<button class="open-button button-2" id="buttonSelect" onclick="randomplayer()">Pick a Question</button>
+	<button class="open-button button-3" id="buttonSave" onclick="savecsv()">Save Questions</button>
+	<button class="open-button button-4" id="buttonEdit" onclick="openForm()">Edit Questions</button>
 </footer>
 <script>
 var mm=00;
@@ -383,6 +383,11 @@ function generategrid(numberofquestions){
 }
 
 function openquestion(i){
+
+	document.getElementById("buttonSelect").disabled=false;
+	document.getElementById("buttonSelect").style.opacity="0.8";
+	document.getElementById("buttonSelect").style.cursor="pointer";
+	console.log("Enable Button");
 	if (questionarray == 0 ){
 		questionarray = questionarray2.slice();
 	}
@@ -489,7 +494,10 @@ function qOff(){
 
 
 function randomplayer(){
-	
+	document.getElementById("buttonSelect").disabled=true;
+	document.getElementById("buttonSelect").style.opacity="0.1";
+	document.getElementById("buttonSelect").style.cursor="default";
+	console.log("Disable Button");
 	console.log("Array1 length : " + questionarray.length);
 	//window.setInterval(highlightquestion(selectrandom()),1000);
 	if (questionarrayused.length == numberofquestions){
