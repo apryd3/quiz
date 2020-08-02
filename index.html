@@ -355,8 +355,8 @@ function resettimer(){
 //Generate main grid and Edit questions grid
 function generategrid(numberofquestions){
 	
-
-
+	
+	questionarray=[];
 	inputQnumber=document.getElementById("IDinputQnumber").value;
 	//console.log=(inputQnumber);
 	window.numberofquestions=inputQnumber;
@@ -370,9 +370,13 @@ function generategrid(numberofquestions){
 	for (i=1; i <= window.numberofquestions; i++){
 		appendquestions+="<div id="+i+" onclick='openquestion("+i+")' class='g1'>Question "+i+"</div>";
 		appendquestionsinput+="<input type='text' placeholder='Question "+i+"' name='question"+i+"' id='IDqinput"+i+"'>";
+		//questionarray.splice=[i,0,i];
 	}
 	
+	
 	questionarrayused=[];
+	
+	
 	
 	containerquestions.innerHTML=appendquestions;
 	questionInputs.innerHTML=appendquestionsinput;
@@ -383,10 +387,10 @@ function generategrid(numberofquestions){
 }
 
 function openquestion(i){
-
-	document.getElementById("buttonSelect").disabled=false;
-	document.getElementById("buttonSelect").style.opacity="0.8";
-	document.getElementById("buttonSelect").style.cursor="pointer";
+	enablePlayButton("buttonSelect");
+	<!-- document.getElementById("buttonSelect").disabled=false; -->
+	<!-- document.getElementById("buttonSelect").style.opacity="0.8"; -->
+	<!-- document.getElementById("buttonSelect").style.cursor="pointer"; -->
 	console.log("Enable Button");
 	if (questionarray == 0 ){
 		questionarray = questionarray2.slice();
@@ -494,9 +498,10 @@ function qOff(){
 
 
 function randomplayer(){
-	document.getElementById("buttonSelect").disabled=true;
-	document.getElementById("buttonSelect").style.opacity="0.1";
-	document.getElementById("buttonSelect").style.cursor="default";
+	<!-- document.getElementById("buttonSelect").disabled=true; -->
+	<!-- document.getElementById("buttonSelect").style.opacity="0.1"; -->
+	<!-- document.getElementById("buttonSelect").style.cursor="default"; -->
+	disablePlayButton("buttonSelect");
 	console.log("Disable Button");
 	console.log("Array1 length : " + questionarray.length);
 	//window.setInterval(highlightquestion(selectrandom()),1000);
@@ -573,6 +578,19 @@ function savecsv(){
 	document.body.appendChild(a);
 	a.click();
 }
+
+function disablePlayButton(button){
+	playButton=document.getElementById(button);
+	playButton.disabled=true;
+	playButton.style.opacity="0.1";
+	playButton.style.cursor="default";
+	}
+function enablePlayButton(button){
+	playButton=document.getElementById(button);
+	playButton.disabled=false;
+	playButton.style.opacity="0.8";
+	playButton.style.cursor="pointer";
+	}
 
 </script>
 
